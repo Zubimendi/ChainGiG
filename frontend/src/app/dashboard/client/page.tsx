@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, Fragment } from "react";
 import { useAccount } from "wagmi";
+import Link from "next/link";
 import {
   useClientJobs,
   useJobDetails,
@@ -395,6 +396,13 @@ export default function ClientDashboard() {
 
   return (
     <div className="pt-28 pb-16 max-w-[1100px] mx-auto px-6 space-y-8">
+      {/* Breadcrumb */}
+      <nav className="flex items-center gap-2 text-sm text-slate-500">
+        <Link href="/dashboard" className="hover:text-primary transition-colors">My Dashboard</Link>
+        <ChevronRight className="h-3.5 w-3.5" />
+        <span className="text-white font-medium">Client</span>
+      </nav>
+
       {/* Stats Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[

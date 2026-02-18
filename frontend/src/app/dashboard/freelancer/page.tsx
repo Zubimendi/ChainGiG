@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useAccount } from "wagmi";
+import Link from "next/link";
 import {
   useFreelancerJobs,
   useJobDetails,
@@ -320,6 +321,13 @@ export default function FreelancerDashboard() {
 
   return (
     <div className="pt-28 pb-16 max-w-[1400px] mx-auto px-6 space-y-8">
+      {/* Breadcrumb */}
+      <nav className="flex items-center gap-2 text-sm text-slate-500">
+        <Link href="/dashboard" className="hover:text-primary transition-colors">My Dashboard</Link>
+        <ChevronRight className="h-3.5 w-3.5" />
+        <span className="text-white font-medium">Freelancer</span>
+      </nav>
+
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-white">
