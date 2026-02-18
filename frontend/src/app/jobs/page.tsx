@@ -10,10 +10,10 @@ function JobCard({ jobId }: { jobId: bigint }) {
 
   if (isLoading) {
     return (
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 animate-pulse">
-        <div className="h-6 bg-gray-800 rounded w-3/4 mb-4" />
-        <div className="h-4 bg-gray-800 rounded w-1/2 mb-2" />
-        <div className="h-4 bg-gray-800 rounded w-1/3" />
+      <div className="bg-navy-muted border border-navy-border rounded-xl p-6 animate-pulse">
+        <div className="h-6 bg-navy-light rounded w-3/4 mb-4" />
+        <div className="h-4 bg-navy-light rounded w-1/2 mb-2" />
+        <div className="h-4 bg-navy-light rounded w-1/3" />
       </div>
     );
   }
@@ -31,7 +31,7 @@ function JobCard({ jobId }: { jobId: bigint }) {
 
   return (
     <Link href={`/jobs/${jobId.toString()}`}>
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-indigo-700 transition-colors cursor-pointer space-y-4">
+      <div className="bg-navy-muted border border-navy-border rounded-xl p-6 hover:border-primary/50 transition-colors cursor-pointer space-y-4">
         <div className="flex items-start justify-between">
           <h3 className="text-lg font-semibold text-white">{job.title}</h3>
           <span
@@ -41,7 +41,7 @@ function JobCard({ jobId }: { jobId: bigint }) {
           </span>
         </div>
 
-        <div className="flex flex-wrap gap-4 text-sm text-gray-400">
+        <div className="flex flex-wrap gap-4 text-sm text-slate-400">
           <div className="flex items-center gap-1">
             <DollarSign className="h-4 w-4" />
             <span>{formatUSDC(job.totalAmount)} USDC</span>
@@ -75,12 +75,12 @@ export default function JobsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="pt-28 pb-16 max-w-7xl mx-auto px-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Browse Jobs</h1>
+        <h1 className="text-3xl font-bold text-white">Browse Jobs</h1>
         <Link
           href="/post-job"
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
+          className="bg-primary hover:bg-primary-hover text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-colors shadow-lg shadow-primary/20"
         >
           Post a Job
         </Link>
@@ -89,14 +89,14 @@ export default function JobsPage() {
       {isLoading ? (
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-gray-900 border border-gray-800 rounded-xl p-6 animate-pulse">
-              <div className="h-6 bg-gray-800 rounded w-3/4 mb-4" />
-              <div className="h-4 bg-gray-800 rounded w-1/2" />
+            <div key={i} className="bg-navy-muted border border-navy-border rounded-xl p-6 animate-pulse">
+              <div className="h-6 bg-navy-light rounded w-3/4 mb-4" />
+              <div className="h-4 bg-navy-light rounded w-1/2" />
             </div>
           ))}
         </div>
       ) : jobIds.length === 0 ? (
-        <div className="text-center py-20 text-gray-500">
+        <div className="text-center py-20 text-slate-500">
           <Briefcase className="h-12 w-12 mx-auto mb-4 opacity-50" />
           <p className="text-lg">No jobs posted yet.</p>
           <p className="text-sm">Be the first to post a job!</p>

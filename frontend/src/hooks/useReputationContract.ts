@@ -61,7 +61,7 @@ export function useSetRating() {
   const chainId = useChainId();
   const addresses = getAddresses(chainId);
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
-  const { isPending: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
   async function setRating(jobId: bigint, rating: number) {
     return writeContractAsync({

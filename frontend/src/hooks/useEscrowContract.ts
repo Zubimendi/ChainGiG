@@ -1,8 +1,9 @@
 "use client";
 
-import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useReadContract, useWriteContract, useWaitForTransactionReceipt, useConfig } from "wagmi";
 import { useChainId } from "wagmi";
 import { parseUnits } from "viem";
+import { waitForTransactionReceipt } from "@wagmi/core";
 import { ESCROW_ABI, USDC_ABI } from "@/constants/abis";
 import { getAddresses } from "@/constants/addresses";
 
@@ -69,9 +70,10 @@ export function useFreelancerJobs(address: `0x${string}` | undefined) {
 
 export function useCreateJob() {
   const chainId = useChainId();
+  const wagmiConfig = useConfig();
   const addresses = getAddresses(chainId);
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
-  const { isPending: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
   async function createJob(params: {
     title: string;
@@ -87,7 +89,6 @@ export function useCreateJob() {
     const fee = (total * 250n) / 10_000n;
     const required = total + fee;
 
-    // Step 1: Approve USDC — wait for the tx hash
     const approveHash = await writeContractAsync({
       address: addresses.usdc,
       abi: USDC_ABI,
@@ -95,37 +96,8 @@ export function useCreateJob() {
       args: [addresses.escrow, required],
     });
 
-    // Step 2: Wait for approval to actually be mined on-chain
-    // Poll the provider until the tx receipt exists
-    if (approveHash && typeof window !== "undefined") {
-      await new Promise<void>((resolve, reject) => {
-        let attempts = 0;
-        const maxAttempts = 60;
-        const poll = setInterval(async () => {
-          attempts++;
-          try {
-            const resp = await fetch(
-              `https://sepolia.basescan.org/api?module=transaction&action=gettxreceiptstatus&txhash=${approveHash}`
-            );
-            const data = await resp.json();
-            if (data?.result?.status === "1") {
-              clearInterval(poll);
-              resolve();
-            }
-          } catch {
-            // Fallback: after a reasonable wait, proceed
-          }
-          if (attempts >= maxAttempts) {
-            clearInterval(poll);
-            // After 30 seconds of polling, proceed anyway — the node usually
-            // confirms within 2-4 seconds on Base Sepolia
-            resolve();
-          }
-        }, 500);
-      });
-    }
+    await waitForTransactionReceipt(wagmiConfig, { hash: approveHash });
 
-    // Step 3: Create the job now that USDC is approved
     return writeContractAsync({
       address: addresses.escrow,
       abi: ESCROW_ABI,
@@ -149,7 +121,7 @@ export function useApproveMilestone() {
   const chainId = useChainId();
   const addresses = getAddresses(chainId);
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
-  const { isPending: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
   async function approve(jobId: bigint, milestoneIndex: bigint) {
     return writeContractAsync({
@@ -167,7 +139,7 @@ export function useRejectMilestone() {
   const chainId = useChainId();
   const addresses = getAddresses(chainId);
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
-  const { isPending: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
   async function reject(jobId: bigint, milestoneIndex: bigint) {
     return writeContractAsync({
@@ -185,7 +157,7 @@ export function useSubmitMilestone() {
   const chainId = useChainId();
   const addresses = getAddresses(chainId);
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
-  const { isPending: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
   async function submit(jobId: bigint, milestoneIndex: bigint, ipfsHash: string) {
     return writeContractAsync({
@@ -203,7 +175,7 @@ export function useCancelJob() {
   const chainId = useChainId();
   const addresses = getAddresses(chainId);
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
-  const { isPending: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
   async function cancel(jobId: bigint) {
     return writeContractAsync({
@@ -221,7 +193,7 @@ export function useAssignFreelancer() {
   const chainId = useChainId();
   const addresses = getAddresses(chainId);
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
-  const { isPending: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
   async function assign(jobId: bigint, freelancer: `0x${string}`) {
     return writeContractAsync({

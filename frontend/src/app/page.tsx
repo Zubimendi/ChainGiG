@@ -1,129 +1,224 @@
 "use client";
 
 import Link from "next/link";
-import { Shield, Coins, Award, Scale, ArrowRight } from "lucide-react";
+import {
+  Lock,
+  PackageCheck,
+  Banknote,
+  ArrowRight,
+  CheckCircle2,
+  ShieldCheck,
+  Globe,
+  Bot,
+  UserSearch,
+  Briefcase,
+  Hexagon,
+  Wallet,
+  CircleDollarSign,
+} from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="space-y-24 py-12">
-      {/* Hero */}
-      <section className="text-center space-y-6">
-        <h1 className="text-5xl sm:text-6xl font-bold tracking-tight">
-          Get Paid Fairly.{" "}
-          <span className="text-indigo-400">Build Trust On-Chain.</span>
-        </h1>
-        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-          Milestone-based USDC escrow with tamper-proof SoulBound credentials.
-          Built for freelancers on Base L2.
-        </p>
-        <div className="flex items-center justify-center gap-4">
-          <Link
-            href="/jobs"
-            className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
-          >
-            Browse Jobs <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link
-            href="/post-job"
-            className="inline-flex items-center gap-2 border border-gray-600 hover:border-gray-400 text-gray-200 px-6 py-3 rounded-lg font-semibold transition-colors"
-          >
-            Post a Job
-          </Link>
+    <div className="pt-20">
+      {/* ── Hero ── */}
+      <section className="relative overflow-hidden hero-gradient pt-24 pb-20">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-8 uppercase tracking-widest">
+            <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse" />
+            Live on Base L2
+          </div>
+
+          <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight">
+            Get paid fairly.
+            <br />
+            <span className="text-primary">Build trust on-chain.</span>
+          </h1>
+
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-400 mb-10 leading-relaxed">
+            Milestone-based escrow for African freelancers.
+            <br className="hidden md:block" />
+            No middlemen. No payment delays. Just secure code.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/post-job"
+              className="w-full sm:w-auto px-8 py-4 bg-primary text-white font-bold rounded-lg hover:bg-primary-hover transition-all text-lg flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
+            >
+              Post a Job <ArrowRight className="h-5 w-5" />
+            </Link>
+            <Link
+              href="/jobs"
+              className="w-full sm:w-auto px-8 py-4 bg-transparent border border-navy-border text-white font-bold rounded-lg hover:bg-white/5 transition-all text-lg"
+            >
+              Browse Work
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="space-y-10">
-        <h2 className="text-3xl font-bold text-center">How It Works</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[
-            { step: "1", title: "Post Job", desc: "Client locks USDC in escrow with defined milestones." },
-            { step: "2", title: "Do Work", desc: "Freelancer submits deliverables to IPFS per milestone." },
-            { step: "3", title: "Get Paid", desc: "Client approves — USDC released instantly to freelancer." },
-            { step: "4", title: "Build Reputation", desc: "SoulBound Token credential minted on completion." },
-          ].map((item) => (
-            <div
-              key={item.step}
-              className="bg-gray-900 border border-gray-800 rounded-xl p-6 text-center space-y-3"
-            >
-              <div className="w-10 h-10 bg-indigo-600/20 text-indigo-400 rounded-full flex items-center justify-center mx-auto font-bold">
-                {item.step}
-              </div>
-              <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p className="text-gray-400 text-sm">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="space-y-10">
-        <h2 className="text-3xl font-bold text-center">Why ChainGig?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[
-            {
-              icon: <Shield className="h-6 w-6 text-indigo-400" />,
-              title: "Escrow Protection",
-              desc: "USDC locked in audited smart contracts. Funds release only when milestones are approved.",
-            },
-            {
-              icon: <Coins className="h-6 w-6 text-green-400" />,
-              title: "USDC Payments",
-              desc: "Stable, instant payments. No forex volatility. No 5-10% bank transfer fees.",
-            },
-            {
-              icon: <Award className="h-6 w-6 text-yellow-400" />,
-              title: "SoulBound Credentials",
-              desc: "Non-transferable on-chain work history. Prove you built X for client Y.",
-            },
-            {
-              icon: <Scale className="h-6 w-6 text-purple-400" />,
-              title: "Community Arbitration",
-              desc: "Disputes resolved by community arbitrators. 2-of-3 majority vote. Fair and decentralized.",
-            },
-          ].map((feature) => (
-            <div
-              key={feature.title}
-              className="bg-gray-900 border border-gray-800 rounded-xl p-6 flex gap-4"
-            >
-              <div className="flex-shrink-0 mt-1">{feature.icon}</div>
-              <div>
-                <h3 className="text-lg font-semibold mb-1">{feature.title}</h3>
-                <p className="text-gray-400 text-sm">{feature.desc}</p>
+      {/* ── Stats ── */}
+      <section className="border-y border-navy-border bg-navy-muted/30">
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="flex flex-col items-center md:items-start">
+              <span className="text-slate-500 text-sm font-medium mb-1">USDC Secured</span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-bold text-white">$124,500</span>
+                <span className="text-primary text-xs font-bold">+12% this week</span>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="text-center space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-            <p className="text-3xl font-bold text-indigo-400">2.5%</p>
-            <p className="text-gray-400 text-sm mt-1">Platform Fee</p>
-          </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-            <p className="text-3xl font-bold text-green-400">&lt;$0.01</p>
-            <p className="text-gray-400 text-sm mt-1">Transaction Cost (Base L2)</p>
-          </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-            <p className="text-3xl font-bold text-yellow-400">7 days</p>
-            <p className="text-gray-400 text-sm mt-1">Auto-Approve Timeout</p>
+            <div className="flex flex-col items-center md:items-start md:border-l border-navy-border md:pl-8">
+              <span className="text-slate-500 text-sm font-medium mb-1">Jobs Completed</span>
+              <span className="text-3xl font-bold text-white">89</span>
+            </div>
+            <div className="flex flex-col items-center md:items-start lg:border-l border-navy-border lg:pl-8">
+              <span className="text-slate-500 text-sm font-medium mb-1">Avg. Payout Time</span>
+              <span className="text-3xl font-bold text-white">4.2m</span>
+            </div>
+            <div className="flex flex-col items-center md:items-start lg:border-l border-navy-border lg:pl-8">
+              <span className="text-slate-500 text-sm font-medium mb-1">Active Freelancers</span>
+              <span className="text-3xl font-bold text-white">1.2k</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="text-center bg-gradient-to-r from-indigo-900/40 to-purple-900/40 border border-indigo-800/50 rounded-2xl p-12 space-y-4">
-        <h2 className="text-3xl font-bold">Ready to get started?</h2>
-        <p className="text-gray-400">Connect your wallet and start building your on-chain reputation today.</p>
-        <Link
-          href="/jobs"
-          className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
-        >
-          Explore Jobs <ArrowRight className="h-4 w-4" />
-        </Link>
+      {/* ── How It Works ── */}
+      <section className="py-32">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How it Works</h2>
+            <p className="text-slate-400">
+              Secure, milestone-driven workflow powered by smart contracts.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Lock className="h-8 w-8" />,
+                title: "1. Lock USDC",
+                desc: "Clients deposit project funds into a secure smart contract escrow. Funds are visible but locked until milestones are met.",
+              },
+              {
+                icon: <PackageCheck className="h-8 w-8" />,
+                title: "2. Deliver",
+                desc: "Freelancers submit work based on agreed milestones. Proof of work is recorded on-chain for transparent verification.",
+              },
+              {
+                icon: <Banknote className="h-8 w-8" />,
+                title: "3. Get Paid",
+                desc: "Once milestones are approved, funds are released instantly. No waiting for bank transfers or manual processing.",
+              },
+            ].map((step) => (
+              <div
+                key={step.title}
+                className="relative p-8 rounded-xl bg-navy-muted border border-navy-border hover:border-primary/50 transition-all group"
+              >
+                <div className="size-14 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                  {step.icon}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+                <p className="text-slate-400 leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Features Grid ── */}
+      <section className="py-32 bg-navy-muted/20 border-t border-navy-border">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* For Freelancers */}
+            <div className="bg-gradient-to-br from-navy-muted to-background p-10 rounded-2xl border border-navy-border">
+              <div className="flex items-center gap-3 mb-8">
+                <UserSearch className="h-6 w-6 text-primary" />
+                <h2 className="text-2xl font-bold text-white italic">For Freelancers</h2>
+              </div>
+              <ul className="space-y-6">
+                {[
+                  {
+                    title: "Guaranteed Payments",
+                    desc: "Know the money is in escrow before you even start the first line of code.",
+                  },
+                  {
+                    title: "On-Chain Reputation",
+                    desc: "Build a verifiable history of successful projects that belongs to you, not a platform.",
+                  },
+                  {
+                    title: "Ultra-Low Fees",
+                    desc: "Keep 97.5% of what you earn. We only take a 2.5% protocol fee to maintain the network.",
+                  },
+                ].map((item) => (
+                  <li key={item.title} className="flex gap-4">
+                    <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-white font-bold mb-1">{item.title}</h4>
+                      <p className="text-slate-400 text-sm">{item.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* For Clients */}
+            <div className="bg-gradient-to-br from-navy-muted to-background p-10 rounded-2xl border border-navy-border">
+              <div className="flex items-center gap-3 mb-8">
+                <Briefcase className="h-6 w-6 text-primary" />
+                <h2 className="text-2xl font-bold text-white italic">For Clients</h2>
+              </div>
+              <ul className="space-y-6">
+                {[
+                  {
+                    title: "Zero-Risk Hiring",
+                    desc: "Funds only leave your wallet if the milestone requirements are fully met.",
+                  },
+                  {
+                    title: "Global Talent Pool",
+                    desc: "Access top-tier African engineering and design talent without international wire headaches.",
+                  },
+                  {
+                    title: "Automated Escrow",
+                    desc: "Programmable payments that trigger automatically upon approval, reducing admin overhead.",
+                  },
+                ].map((item) => (
+                  <li key={item.title} className="flex gap-4">
+                    <ShieldCheck className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-white font-bold mb-1">{item.title}</h4>
+                      <p className="text-slate-400 text-sm">{item.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Trust Indicators ── */}
+      <section className="py-20 border-t border-navy-border">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mb-10">
+            Powering the future of work on
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div className="flex items-center gap-2 text-white text-2xl font-bold">
+              <Hexagon className="h-7 w-7" /> Base
+            </div>
+            <div className="flex items-center gap-2 text-white text-2xl font-bold">
+              <Globe className="h-7 w-7" /> Ethereum
+            </div>
+            <div className="flex items-center gap-2 text-white text-2xl font-bold">
+              <Wallet className="h-7 w-7" /> MetaMask
+            </div>
+            <div className="flex items-center gap-2 text-white text-2xl font-bold">
+              <CircleDollarSign className="h-7 w-7" /> USDC
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   );

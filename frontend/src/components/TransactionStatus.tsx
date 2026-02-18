@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, CheckCircle2, XCircle } from "lucide-react";
+import { Loader2, CheckCircle2 } from "lucide-react";
 
 interface TransactionStatusProps {
   isPending: boolean;
@@ -20,7 +20,7 @@ export function TransactionStatus({
   if (!isPending && !isConfirming && !isSuccess) return null;
 
   return (
-    <div className="rounded-lg border border-gray-700 bg-gray-800/50 p-4 mt-4">
+    <div className="rounded-lg border border-navy-border bg-navy-muted/50 p-4 mt-4">
       {isPending && (
         <div className="flex items-center gap-3 text-yellow-400">
           <Loader2 className="h-5 w-5 animate-spin" />
@@ -29,7 +29,7 @@ export function TransactionStatus({
       )}
 
       {isConfirming && (
-        <div className="flex items-center gap-3 text-blue-400">
+        <div className="flex items-center gap-3 text-primary">
           <Loader2 className="h-5 w-5 animate-spin" />
           <div>
             <p>Confirming {label}...</p>
@@ -38,7 +38,7 @@ export function TransactionStatus({
                 href={`https://sepolia.basescan.org/tx/${hash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-blue-300 underline"
+                className="text-xs text-primary/70 underline"
               >
                 View on Basescan
               </a>
